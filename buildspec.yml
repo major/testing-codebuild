@@ -1,0 +1,26 @@
+version: 0.2
+
+env:
+  variables:
+    FOO: BAR
+
+phases:
+  install:
+    commands:
+      - dnf -y upgrade
+    finally:
+      - echo This always runs even if the update or install command fails 
+  pre_build:
+    commands:
+      - dnf -y install /usr/bin/go
+    finally:
+      - echo This always runs even if the login command fails 
+  build:
+    commands:
+      - go version
+    finally:
+      - echo This always runs even if the install command fails
+  post_build:
+    commands:
+      - echo Entered the post_build phase...
+      - echo Build completed on `date`
