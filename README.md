@@ -1,3 +1,2 @@
 # testing-codebuild
 
-Test.
