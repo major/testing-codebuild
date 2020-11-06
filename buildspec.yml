@@ -7,20 +7,16 @@ env:
 phases:
   install:
     commands:
-      - dnf -y upgrade
-    finally:
-      - echo This always runs even if the update or install command fails 
+      - dnf -qy upgrade
   pre_build:
     commands:
-      - dnf -y install /usr/bin/go
+      - dnf -qy install /usr/bin/aws
     finally:
-      - echo This always runs even if the login command fails 
+      - dnf clean all
   build:
     commands:
-      - go version
-    finally:
-      - echo This always runs even if the install command fails
+      - "aws sts get-caller-identity"
+      - "aws --region us-east-2 ec2 describe-instances"
   post_build:
     commands:
-      - echo Entered the post_build phase...
-      - echo Build completed on `date`
+      - cat /etc/fedora-release
